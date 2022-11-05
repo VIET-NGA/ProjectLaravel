@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BackEnds\AdminController;
 use App\Http\Controllers\FrontEnds\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[HomeController::class,'index'])->name('index');
 Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
 Route::get('loginPage',[HomeController::class,'login'])->name('login');
+
+
+// Admin
+Route::prefix('admin')->group(function(){
+    Route::get('/',[AdminController::class,'index'])->name('admin');
+});

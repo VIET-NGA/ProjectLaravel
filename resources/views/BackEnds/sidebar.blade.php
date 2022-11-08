@@ -3,23 +3,18 @@
     <div class="leftside-navigation">
         <ul class="sidebar-menu" id="nav-accordion">
             <li>
-                <a class="active" href="{{ route('admin') }}">
+                <a class="active" href="{{ route('dashboard') }}">
                     <i class="fa fa-dashboard"></i>
-                    <span>Dashboard</span>
+                    <span>Tổng Quan</span>
                 </a>
             </li>
-            
-            {{-- <li class="sub-menu">
-                <a href="javascript:;">
-                    <i class="fa fa-book"></i>
-                    <span>UI Elements</span>
+            <li>
+                <a href="{{ route('category') }}">
+                    <i class="fa fa-navicon"></i>
+                    <span>Danh Mục Sản Phẩm</span>
                 </a>
-                <ul class="sub">
-                    <li><a href="typography.html">Typography</a></li>
-                    <li><a href="glyphicon.html">glyphicon</a></li>
-                    <li><a href="grids.html">Grids</a></li>
-                </ul>
             </li>
+           {{--  
             <li>
                 <a href="fontawesome.html">
                     <i class="fa fa-bullhorn"></i>

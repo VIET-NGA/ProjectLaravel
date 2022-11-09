@@ -14,6 +14,12 @@
                     <span>Danh Mục Sản Phẩm</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('brand') }}">
+                    <i class="fa fa-cube"></i>
+                    <span>Thương Hiệu Sản Phẩm</span>
+                </a>
+            </li>
            {{--  
             <li>
                 <a href="fontawesome.html">

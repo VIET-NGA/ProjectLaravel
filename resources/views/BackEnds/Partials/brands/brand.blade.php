@@ -1,5 +1,5 @@
 @extends('BackEnds.layoutAdmin')
-@section('titleAdminPage','Danh mục Sản Phẩm')
+@section('titleAdminPage','Thương Hiệu Sản Phẩm')
 @section('mainAdmin')
 <div class="table-agile-info">
     <?php $messages = Session::get('message');
@@ -13,7 +13,7 @@
     ?>
     
     <div class="text-right" style="margin-bottom: 5px">
-        <a href="{{ route('addCategory') }}" title="Thêm danh mục">
+        <a href="{{ route('addBrand') }}" title="Thêm Thương hiệu">
             <span class="btn btn-success" value="add">
                 <i class="fa fa-plus"></i>
             </span>
@@ -23,7 +23,7 @@
       <div class="panel-heading">
         @yield('titleAdminPage')
       </div>
-      @if (!empty($result))
+      @if (!empty($data))
       <div class="row w3-res-tb">
         <div class="col-sm-9">
         </div>
@@ -45,45 +45,45 @@
                   <input type="checkbox"><i></i>
                 </label>
               </th>
-              <th>Tên Danh Mục</th>
+              <th>Tên Thương Hiệu</th>
               <th>Mô Tả</th>
-              <th>Hiển Thị</th>
+              <th width="100px">Hiển Thị</th>
               <th>Ngày Tạo</th>
               <th>Ngày Cập Nhật</th>
               <th style="width:30px;"></th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($result as $cat)
-            <tr>
-                <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-                <td>{{ $cat->category_name }}</td>
-                <td><span class="text-ellipsis">{{ $cat->category_description }}</span></td>
-                <td style="text-align:center">
-                    @if ($cat->category_status==0)
-                    <span class="text-ellipsis bg-success">
-                        <span style="font-weight: bold;margin: 5px; color: #ffffff">Hiển Thị</span>
-                    </span>
-                    @else
-                    <span class="text-ellipsis bg-danger">
-                        <span style="font-weight: bold;margin: 5px; color: #ffffff">Ẩn</span>
-                    </span>
-                    @endif
-                    
-                </td>
-                <td>{{ $cat->created_at }}</td>
-                <td>{{ $cat->updated_at }}</td>
-                <td style="display:flex">
-                  <a style="margin-right:5px"href="{{ route('editCategory', $cat->category_id) }}" class="active btn btn-primary" title="Sửa Danh Mục" ui-toggle-class="">
-                    <i class="fa fa-pencil text-success text-active"></i>  Edit
-                </a>
-                <a href="{{ route('deleteCategory', $cat->category_id) }}" onclick="return confirm('Bạn có chắc muốn xóa danh mục này ?')"class="active btn btn-danger" title="Xóa Danh Mục" ui-toggle-class="">
-                    <i class="fa fa-trash text-warning"></i> Delete
-                </a>
-                </td>
-              </tr>
-            @endforeach
-            
+                @foreach ($data as $key=>$brand)
+                <tr>
+                    {{-- <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td> --}}
+                    <td>{{ $key }}</td>
+                    <td>{{ $brand->brand_name }}</td>
+                    <td><span class="text-ellipsis">{{ $brand->brand_description }}</span></td>
+                    <td class="text-center" >
+                        @if ($brand->brand_status==0)
+                        <span class="text-ellipsis bg-success">
+                            <span style="font-weight: bold;margin: 5px; color: #ffffff">Hiển Thị</span>
+                        </span>
+                        @else
+                        <span class="text-ellipsis bg-danger">
+                            <span style="font-weight: bold;margin: 5px; color: #ffffff">Ẩn</span>
+                        </span>
+                        @endif
+                    </td>
+                    <td>{{ $brand->created_at }}</td>
+                    <td>{{ $brand->updated_at }}</td>
+                    <td style="display:flex">
+                    <a style="margin-right:5px" href="{{ route('editBrand', $brand->brand_id) }}" class="active btn btn-primary" title="Sửa Thương hiệu" ui-toggle-class="">
+                        <i class="fa fa-pencil text-success text-active"></i>  Edit
+                    </a>
+                    <a href="{{ route('deleteBrand', $brand->brand_id) }}" onclick="return confirm('Bạn có chắc muốn xóa danh mục này ?')"class="active btn btn-danger" title="Xóa Thương hiệu" ui-toggle-class="">
+                        <i class="fa fa-trash text-warning"></i> Delete
+                    </a>
+                    </td>
+                </tr>
+                @endforeach
+
           </tbody>
         </table>
       </div>
@@ -106,7 +106,7 @@
         </div>
       </footer>
       @else
-      <div class="alert-warning" style="margin-top: 15px; text-align: center; font-size:17px">Danh Sách Sản Phẩm Trống</div>
+        <div class="alert-warning" style="margin-top: 15px; text-align: center; font-size:17px">Danh Sách Thương Hiệu Trống</div>
       @endif
       
     </div>

@@ -1,5 +1,5 @@
 @extends('BackEnds.layoutAdmin')
-@section('titleAdminPage','Thêm Danh Mục')
+@section('titleAdminPage','Sửa Thương Hiệu')
     
 @section('mainAdmin')
 <div class="row">
@@ -24,26 +24,32 @@
             </header>
             <div class="panel-body">
                 <div class="form">
-                    <form action="{{ route('postCategory') }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
+                    <form action="{{ route('updateBrand', $result->brand_id) }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Danh Mục</label>
+                            <label class="control-label col-lg-3">Tên Thương Hiệu</label>
                             <div class="col-lg-6">
-                                <input class=" form-control" id="cate" name="categoryName" type="text">
+                                <input class=" form-control" id="cate" value="{{ $result->brand_name }}" name="brandName" type="text">
                             </div>
                         </div>
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Mô tả </label>
                             <div class="col-lg-6">
-                                <textarea style="resize: none" rows="8" name="descriptionName" class="form-control" ></textarea>
+                                <textarea style="resize: none" rows="8" name="descriptionName" class="form-control" >{{ $result->brand_description }}</textarea>
                             </div>
                         </div>
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Hiện thị</label>
                             <div class="col-lg-6">
-                                <select class="form-control" name="cateStatus" id="">
-                                    <option value="0">Hiện</option>
-                                    <option value="1">Ẩn</option>
+                                <select class="form-control" name="statusName" id="">
+                                    @if ($result->brand_status==0)
+                                        <option value="0" selected>Hiện</option>
+                                        <option value="1">Ẩn</option>
+                                    @else
+                                        <option value="0">Hiện</option>
+                                        <option value="1" selected>Ẩn</option>
+                                    @endif
+                                   
                                 </select>
                             </div>
                         </div>
@@ -51,8 +57,8 @@
 
                         <div class="form-group">
                             <div class="col-lg-offset-3 col-lg-6">
-                                <button class="btn btn-primary" type="submit">Thêm</button>
-                                <a href="{{ route('category') }}"><button class="btn btn-default" type="button">Quay lại</button></a>
+                                <button class="btn btn-primary" type="submit">Cập nhật</button>
+                                <a href="{{ route('brand') }}"><button class="btn btn-default" type="button">Quay lại</button></a>
                             </div>
                         </div>
                     </form>

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 class CategoryController extends Controller
 {
     public function index(){
-        $result = DB::table('tbl_category')->get();
+        $result = DB::table('tbl_category')->get()->toArray();
         return view('BackEnds.partials.categories.category', compact('result'));
     }
 

@@ -1,5 +1,5 @@
 @extends('BackEnds.layoutAdmin')
-@section('titleAdminPage','Thêm Danh Mục')
+@section('titleAdminPage','Thêm Thương Hiệu')
     
 @section('mainAdmin')
 <div class="row">
@@ -24,12 +24,12 @@
             </header>
             <div class="panel-body">
                 <div class="form">
-                    <form action="{{ route('postCategory') }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
+                    <form action="{{ route('saveBrand') }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Danh Mục</label>
+                            <label class="control-label col-lg-3">Tên Thương Hiệu</label>
                             <div class="col-lg-6">
-                                <input class=" form-control" id="cate" name="categoryName" type="text">
+                                <input class=" form-control" id="cate" name="brandName" type="text">
                             </div>
                         </div>
                         <div class="form-group ">
@@ -41,7 +41,7 @@
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Hiện thị</label>
                             <div class="col-lg-6">
-                                <select class="form-control" name="cateStatus" id="">
+                                <select class="form-control" name="statusName" id="">
                                     <option value="0">Hiện</option>
                                     <option value="1">Ẩn</option>
                                 </select>
@@ -52,7 +52,7 @@
                         <div class="form-group">
                             <div class="col-lg-offset-3 col-lg-6">
                                 <button class="btn btn-primary" type="submit">Thêm</button>
-                                <a href="{{ route('category') }}"><button class="btn btn-default" type="button">Quay lại</button></a>
+                               <a href="{{ route('brand') }}"> <button class="btn btn-default" type="button">Quay lại</button></a>
                             </div>
                         </div>
                     </form>

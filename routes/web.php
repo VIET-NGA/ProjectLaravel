@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackEnds\AdminController;
+use App\Http\Controllers\BackEnds\BrandController;
 use App\Http\Controllers\BackEnds\CategoryController;
 use App\Http\Controllers\FrontEnds\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +36,7 @@ Route::prefix('admin')->group(function(){
 
     // login
     Route::post('adminDashboard', [AdminController::class,'adminDashboard'])->name('adminDashboard');
-    
+
     // logout
     Route::get('logout',[AdminController::class,'logout'])->name('logout');
 
@@ -54,6 +55,22 @@ Route::prefix('admin')->group(function(){
 
         // delete
         Route::get('deleteCate/{id}',[CategoryController::class,'deleteCategory'])->name('deleteCategory');
+    });
+
+    // Brand 
+    Route::prefix('brand')->group(function(){
+        Route::get('/',[BrandController::class,'index'])->name('brand');
+
+        // add
+        Route::get('addBrand',[BrandController::class,'addBrand'])->name('addBrand');
+        Route::post('saveBrand',[BrandController::class, 'saveBrand'])->name('saveBrand');
+
+        // edit
+        Route::get('editBrand/{id}',[BrandController::class, 'editBrand'])->name('editBrand');
+        Route::post('updateBrand/{id}',[BrandController::class, 'updateBrand'])->name('updateBrand');
+
+        // delete
+        Route::get('deleteBrand/{id}',[BrandController::class,'deleteBrand'])->name('deleteBrand');
     });
     
 });

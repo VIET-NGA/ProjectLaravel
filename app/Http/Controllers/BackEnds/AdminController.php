@@ -9,11 +9,24 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
+
+    // check Auth
+    // chú ý hàm send
+    public function AuthLogin(){
+        $admin_id = Session::get('adminId');
+        if ($admin_id) {
+            return redirect()->route('dashboard');
+        }else{
+            return redirect()->route('admin')->send();
+        }
+    }
+
     public function index(){
         return view('BackEnds.loginAdmin');
         // 
     }
     public function ShowDashboard(){
+        $this->AuthLogin();
         return view('BackEnds.Partials.home.home');
     }
 
@@ -34,6 +47,7 @@ class AdminController extends Controller
 
     // logout
     public function logout(){
+        $this->AuthLogin();
         Session::put('adminName',null);
         Session::put('adminId',null);
         return redirect('admin');

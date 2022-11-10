@@ -11,7 +11,6 @@
             Session::put('message',null);
         echo '</div>';
     }
-
     ?>
         <section class="panel">
             <header class="panel-heading">
@@ -43,11 +42,11 @@
                             <div class="col-lg-6">
                                 <select class="form-control" name="cateStatus" id="">
                                     @if ($data->category_status==0)
-                                    <option value="0" selected>Hiện</option>
-                                    <option value="1">Ẩn</option>
+                                        <option value="0" selected>Hiện</option>
+                                        <option value="1">Ẩn</option>
                                     @else
-                                    <option value="0">Hiện</option>
-                                    <option value="1" selected>Ẩn</option>
+                                        <option value="0">Hiện</option>
+                                        <option value="1" selected>Ẩn</option>
                                     @endif
                                 </select>
                             </div>

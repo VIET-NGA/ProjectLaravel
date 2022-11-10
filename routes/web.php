@@ -3,6 +3,7 @@
 use App\Http\Controllers\BackEnds\AdminController;
 use App\Http\Controllers\BackEnds\BrandController;
 use App\Http\Controllers\BackEnds\CategoryController;
+use App\Http\Controllers\BackEnds\ProductController;
 use App\Http\Controllers\FrontEnds\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +72,22 @@ Route::prefix('admin')->group(function(){
 
         // delete
         Route::get('deleteBrand/{id}',[BrandController::class,'deleteBrand'])->name('deleteBrand');
+    });
+
+    // Product
+    Route::prefix('product')->group(function(){
+        Route::get('/',[ProductController::class,'index'])->name('product');
+
+        // add
+        Route::get('addProduct',[ProductController::class,'addProduct'])->name('addProduct');
+        Route::post('saveProduct',[ProductController::class,'saveProduct'])->name('saveProduct');
+
+        // edit
+        Route::get('editProduct/{id}',[ProductController::class,'editProduct'])->name('editProduct');
+        Route::post('updateProduct/{id}',[ProductController::class,'updateProduct'])->name('updateProduct');
+
+        // delete
+        Route::get('deleteProduct/{id}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
     });
     
 });

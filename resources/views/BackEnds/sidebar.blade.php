@@ -20,6 +20,12 @@
                     <span>Thương Hiệu Sản Phẩm</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('product') }}">
+                    <i class="fa fa-th"></i>
+                    <span>Sản Phẩm</span>
+                </a>
+            </li>
            {{--  
             <li>
                 <a href="fontawesome.html">

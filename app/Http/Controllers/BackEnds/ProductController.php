@@ -104,6 +104,10 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request, $id){
         $this->AuthLogin();
+        $result = DB::table('tbl_product')->where('product_id',$id);
+        
+        $getData = $result->first();
+        // dd($result);
         try {
             $data=[];
             $data['product_name'] = $request->productName;
@@ -128,12 +132,12 @@ class ProductController extends Controller
                 $get_image->move($path, $newImage);
     
                 $data['product_image']= $newImage;
-                DB::table('tbl_product')->where('product_id',$id)->update($data);
+                $result->update($data);
                 Session::put('message','Cập nhật sản phẩm thành công');
                 
             }else{
-                // $data['product_image']= '';
-                DB::table('tbl_product')->where('product_id',$id)->update($data);
+                $data['product_image'] = $getData->product_image;
+                $result->update($data);
                 Session::put('message','Cập nhật sản phẩm thành công');
             }
         } catch (\Throwable $e) {

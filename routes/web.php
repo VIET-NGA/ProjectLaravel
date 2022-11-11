@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('partials.home.home');
 // });
 Route::get('/',[HomeController::class,'index'])->name('index');
+
+
+Route::get('danh-muc-san-pham/{id}',[HomeController::class,'DanhMucSanPham'])->name('danh-muc-san-pham');
+Route::get('thuong-hieu-san-pham/{id}', [HomeController::class,'ThuongHieuSanPham'])->name('thuong-hieu-san-pham');
+
 Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
 Route::get('loginPage',[HomeController::class,'login'])->name('login');
 

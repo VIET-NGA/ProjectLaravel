@@ -4,6 +4,7 @@ use App\Http\Controllers\BackEnds\AdminController;
 use App\Http\Controllers\BackEnds\BrandController;
 use App\Http\Controllers\BackEnds\CategoryController;
 use App\Http\Controllers\BackEnds\ProductController;
+use App\Http\Controllers\FrontEnds\CartController;
 use App\Http\Controllers\FrontEnds\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,22 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::get('/',[HomeController::class,'index'])->name('index');
 
-
+// Danh muc & thuong hieu theo ID
 Route::get('danh-muc-san-pham/{id}',[HomeController::class,'DanhMucSanPham'])->name('danh-muc-san-pham');
 Route::get('thuong-hieu-san-pham/{id}', [HomeController::class,'ThuongHieuSanPham'])->name('thuong-hieu-san-pham');
+
+// chi tiet san pham
+Route::get('chi-tiet-san-pham/{id}',[HomeController::class,'ProductDetail'])->name('chi-tiet-san-pham');
+
+// giỏ hàng
+// saveCart/{id?} gửi cả id sản phẩm theo
+Route::post('saveCart', [CartController::class,'saveCart'])->name('saveCart');
+Route::get('showCart', [CartController::class, 'showCart'])->name('showCart');
+
+// update Cart
+Route::get('updateCart/{id}', [CartController::class, 'updateCart'])->name('updateCart');
+// delete Cart
+Route::get('deleteCart/{id}',[CartController::class, 'deleteCart'])->name('deleteCart');
 
 Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
 Route::get('loginPage',[HomeController::class,'login'])->name('login');

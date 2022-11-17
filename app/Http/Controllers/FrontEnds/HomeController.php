@@ -28,6 +28,7 @@ class HomeController extends Controller
 
         // get tên Danh mục
         $category_name = DB::table('tbl_category')->where('category_id', $id)->get();
+
         return view('Partials.products.product_by_categoryID', compact('danhmuc', 'thuonghieu', 'data', 'category_name'));
     }
 
@@ -38,6 +39,35 @@ class HomeController extends Controller
         $brandByid = DB::table('tbl_product')->where('brand_id', $id)->get()->toArray();
 
         return view('Partials.products.product_by_brand_ID', compact('danhmuc', 'thuonghieu', 'brandByid'));
+    }
+
+    // ProductDetail
+    public function ProductDetail($id){
+        $danhmuc = DB::table('tbl_category')->where('category_status', '0')->orderBy('category_id','DESC')->get();
+        $thuonghieu = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id','DESC')->get();
+
+        // $result = DB::table('tbl_product')->where('product_id', $id)->first();
+        $product_detail = DB::table('tbl_product')
+                  ->join('tbl_category','tbl_product.category_id', '=', 'tbl_category.category_id')
+                  ->join('tbl_brand','tbl_brand.brand_id', '=', 'tbl_product.brand_id')
+                  ->where('tbl_product.product_id', $id)->first();
+        // dd($product_detail);
+
+
+        // Sản phẩm liên quan
+        // lấy tất cả id danh mục cùng voi id chi tiết, 
+        $category_id = DB::table('tbl_product')->where('category_id', $product_detail->category_id)->get();
+        // dd($category_id);
+        foreach ($category_id as $key => $value) {
+            // lấy từng id danh mục gán vào biến $catId
+            $catId = $value->category_id;
+            // dd($catId);
+        }
+        // truy vấn all sản phẩm liên quan có cùng 1 danh mục và loại sản phẩm đang được chọn 
+        $sanphamlienquan = DB::table('tbl_product')->where('category_id', $catId)->whereNotIn('product_id', [$id])->get();
+        // dd($sanphamlienquan);
+       
+        return view('Partials.products.productDetail', compact('danhmuc', 'thuonghieu', 'product_detail', 'sanphamlienquan'));
     }
 
     // Liên hệ

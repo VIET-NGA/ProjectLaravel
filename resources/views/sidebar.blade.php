@@ -6,7 +6,7 @@
             <div class="panel panel-default">
                 @foreach ($danhmuc as $item)
                 <div class="panel-heading">
-                    <h4 class="panel-title"><a href="{{ route('danh-muc-san-pham', $item->category_id) }}">{{ $item->category_name }}</a></h4>
+                    <h4 class="panel-title"><a class="" href="{{ route('danh-muc-san-pham', $item->category_id) }}">{{ $item->category_name }}</a></h4>
                 </div>
                 @endforeach
             </div>

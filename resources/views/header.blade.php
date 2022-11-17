@@ -41,7 +41,18 @@
                             <li><a href="#"><i class="fa fa-user"></i> Tài khoản</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Yêu thích</a></li>
                             {{-- <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Thanh toán</a></li> --}}
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                            <li>
+                                <a href="{{ route('showCart') }}"><i class="fa fa-shopping-cart"></i> 
+                                    Giỏ hàng 
+                                    <?php $count = Cart::count();?>
+                                @if ($count > 0)
+                                    <span style="background-color:orange; border-radius:50px; padding:3px; color:white; font-weight:bold">
+                                        {{ $count }}
+                                    </span>
+                                @endif
+                                
+                                </a>
+                            </li>
                             <li><a href="{{ url('loginPage') }}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
                         </ul>
                     </div>

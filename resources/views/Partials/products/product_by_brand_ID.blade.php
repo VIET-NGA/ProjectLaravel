@@ -12,6 +12,7 @@
             <h2 class="title text-center">Thương Hiệu Sản Phẩm</h2>
             @if ($brandByid)
             @foreach ($brandByid as $th)
+            <a href="{{ route('chi-tiet-san-pham', $th->product_id) }}">
             <div class="col-sm-4">
                 <div class="product-image-wrapper">
                     <div class="single-products">
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </div>
+            </a>
             @endforeach
             @else
                 <p class="alert alert-warning text-center">Sản Phẩm đang được cập nhật, vui lòng quay lại sau.....</p>

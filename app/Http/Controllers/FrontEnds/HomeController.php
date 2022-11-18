@@ -70,6 +70,17 @@ class HomeController extends Controller
         return view('Partials.products.productDetail', compact('danhmuc', 'thuonghieu', 'product_detail', 'sanphamlienquan'));
     }
 
+    // Search
+    public function Search(Request $request){
+        $danhmuc = DB::table('tbl_category')->where('category_status', '0')->orderBy('category_id','DESC')->get();
+        $thuonghieu = DB::table('tbl_brand')->where('brand_status', '0')->orderBy('brand_id','DESC')->get();
+        
+        $timkiem = $request->keywords;
+        $querySearch = DB::table('tbl_product')->where('product_name', 'like','%' . $timkiem . '%')->get();
+
+        return view('Partials.products.search', compact('danhmuc', 'thuonghieu', 'querySearch','timkiem'));
+    }
+
     // Liên hệ
     public function contact(){
         return view('Partials.contact.contact');

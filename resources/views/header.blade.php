@@ -44,7 +44,7 @@
                             <li>
                                 <a href="{{ route('showCart') }}"><i class="fa fa-shopping-cart"></i> 
                                     Giỏ hàng 
-                                    <?php $count = Cart::count();?>
+                                <?php $count = Cart::count();?>
                                 @if ($count > 0)
                                     <span style="background-color:orange; border-radius:50px; padding:3px; color:white; font-weight:bold">
                                         {{ $count }}
@@ -53,7 +53,17 @@
                                 
                                 </a>
                             </li>
-                            <li><a href="{{ url('loginPage') }}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                            <?php 
+                                $customer_id = Session::get('customer_id');
+                                // dd($customer_id);
+                            ?>
+                            @if ($customer_id != null)
+                                <li><a href="{{ route('logout-customer') }}"><i class="fa fa-lock"></i> Đăng xuất</a></li>
+                            @else
+                                <li><a href="{{ route('loginCheckout') }}"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                            @endif
+                            
+                            
                         </ul>
                     </div>
                 </div>
@@ -97,9 +107,23 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Tìm kiếm"/>
-                    </div>
+                    <form action="{{ route('search') }}" method="GET">
+                        <div class="input-group pull-right">
+                           <input type="text" name="keywords" class="form-control" placeholder="Tìm kiếm" id="txtSearch"/>
+                           <div class="input-group-btn pull-right">
+                                <button class="btn btn-primary" type="submit" style="margin: -54px 0px 0px 3px;">
+                                <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                           </div>
+                           </div>
+                        </form>
+                    {{-- <form action="{{ route('search') }}" method="get">
+                        @csrf
+                        <div class=" pull-right">
+                            <input name="keywords" type="text" placeholder="Tìm kiếm"/>
+                            <button type="submit">Tìm kiếm</button>
+                        </div>
+                    </form> --}}
                 </div>
             </div>
         </div>

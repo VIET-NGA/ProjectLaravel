@@ -1,6 +1,5 @@
 @extends('layout')
 @section('title_page','Giỏ hàng')
-
 @section('main')
 <section id="cart_items">
     <div class="container">
@@ -49,9 +48,9 @@
                             @csrf
                             <td class="">
                                 <div class="">
-                                    {{-- <a class="cart_quantity_up" href=""> + </a> --}}
-                                    {{-- <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2"> --}}
-                                    {{-- <a class="cart_quantity_down" href=""> - </a> --}}
+                                    {{-- <a class="cart_quantity_up" href=""> + </a>
+                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
+                                    <a class="cart_quantity_down" href=""> - </a> --}}
                                     <input type="number" name="quantity" min="1" max="" value="{{ $item->qty }}" autocomplete="off" size="2">
                                     <button type="submit">Cập nhật</button>
                                 </div>
@@ -136,12 +135,19 @@
                 <div class="total_area">
                     <ul>
                         <li>Cộng Tiền Hàng <span>{{ Cart::subtotal() }}</span></li>
-                        <li>Tiền Thuế <span>{{ Cart::tax() }}</span></li>
+                        <li>Tiền Thuế 10%<span>{{ Cart::tax() }}</span></li>
                         <li>Tiền Ship <span>Free</span></li>
                         <li>Tổng Cộng Tiền Thanh Toán <span>{{ Cart::total() }}</span></li>
                     </ul>
                         {{-- <a class="btn btn-default update" href="">Update</a> --}}
-                        <a class="btn btn-default check_out" href="">Thanh Toán</a>
+                        <?php
+                            $customer_id = Session::get('customer_id');
+                        ?>
+                        @if ($customer_id != null)
+                            <a class="btn btn-default check_out" href="{{ route('checkout') }}">Thanh Toán</a>
+                        @else
+                            <a class="btn btn-default check_out" href="{{ route('loginCheckout') }}">Thanh Toán</a>
+                        @endif
                 </div>
             </div>
         </div>

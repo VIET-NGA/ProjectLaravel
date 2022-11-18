@@ -5,6 +5,7 @@ use App\Http\Controllers\BackEnds\BrandController;
 use App\Http\Controllers\BackEnds\CategoryController;
 use App\Http\Controllers\BackEnds\ProductController;
 use App\Http\Controllers\FrontEnds\CartController;
+use App\Http\Controllers\FrontEnds\CheckoutController;
 use App\Http\Controllers\FrontEnds\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,22 +32,41 @@ Route::get('/',[HomeController::class,'index'])->name('index');
 // Danh muc & thuong hieu theo ID
 Route::get('danh-muc-san-pham/{id}',[HomeController::class,'DanhMucSanPham'])->name('danh-muc-san-pham');
 Route::get('thuong-hieu-san-pham/{id}', [HomeController::class,'ThuongHieuSanPham'])->name('thuong-hieu-san-pham');
-
 // chi tiet san pham
 Route::get('chi-tiet-san-pham/{id}',[HomeController::class,'ProductDetail'])->name('chi-tiet-san-pham');
+// search
+Route::get('search',[HomeController::class,'Search'])->name('search');
+
 
 // giỏ hàng
 // saveCart/{id?} gửi cả id sản phẩm theo
 Route::post('saveCart', [CartController::class,'saveCart'])->name('saveCart');
 Route::get('showCart', [CartController::class, 'showCart'])->name('showCart');
-
 // update Cart
 Route::get('updateCart/{id}', [CartController::class, 'updateCart'])->name('updateCart');
 // delete Cart
 Route::get('deleteCart/{id}',[CartController::class, 'deleteCart'])->name('deleteCart');
 
+
+// checkout
+Route::get('login-checkout',[CheckoutController::class, 'login_Checkout'])->name('loginCheckout');
+// save login
+Route::post('save-login', [CheckoutController::class, 'Save_login'])->name('saveLogin');
+// logout
+Route::get('logout',[CheckoutController::class, 'LogOut'])->name('logout-customer');
+Route::get('checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+// register account
+Route::post('saveRegister', [CheckoutController::class, 'Save_Register'])->name('saveRegister');
+// save shipping 
+Route::post('save-shipping', [CheckoutController::class, 'Save_Shipping'])->name('save-shipping');
+// payment
+Route::get('payment', [CheckoutController::class, 'payment'])->name('payment');
+
+
+
+
 Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
-Route::get('loginPage',[HomeController::class,'login'])->name('login');
+// Route::get('loginPage',[HomeController::class,'login'])->name('login');
 
 
 // Admin

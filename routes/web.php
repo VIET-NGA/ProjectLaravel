@@ -3,6 +3,7 @@
 use App\Http\Controllers\BackEnds\AdminController;
 use App\Http\Controllers\BackEnds\BrandController;
 use App\Http\Controllers\BackEnds\CategoryController;
+use App\Http\Controllers\BackEnds\OrderController;
 use App\Http\Controllers\BackEnds\ProductController;
 use App\Http\Controllers\FrontEnds\CartController;
 use App\Http\Controllers\FrontEnds\CheckoutController;
@@ -61,6 +62,8 @@ Route::post('saveRegister', [CheckoutController::class, 'Save_Register'])->name(
 Route::post('save-shipping', [CheckoutController::class, 'Save_Shipping'])->name('save-shipping');
 // payment
 Route::get('payment', [CheckoutController::class, 'payment'])->name('payment');
+// order-place
+Route::post('order-place', [CheckoutController::class, 'Order_place'])->name('order-place');
 
 
 
@@ -127,6 +130,14 @@ Route::prefix('admin')->group(function(){
 
         // delete
         Route::get('deleteProduct/{id}',[ProductController::class,'deleteProduct'])->name('deleteProduct');
+    });
+
+    // Order
+    Route::prefix('order')->group(function(){
+        Route::get('/',[OrderController::class,'index'])->name('order');
+        Route::get('show-order/{id}',[OrderController::class,'Show_Order'])->name('showOrder');
+        Route::get('edit-order/{id}',[OrderController::class,'Edit_Order'])->name('editOrder');
+        Route::post('update-order/{id}',[OrderController::class,'Update_Order'])->name('updateOrder');
     });
     
 });

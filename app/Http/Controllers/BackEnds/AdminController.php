@@ -26,8 +26,9 @@ class AdminController extends Controller
         // 
     }
     public function ShowDashboard(){
+
         $this->AuthLogin();
-        return view('BackEnds.Partials.home.home');
+        return view('BackEnds.Partials.home.home', compact('coutOrder'));
     }
 
     // login
@@ -52,4 +53,5 @@ class AdminController extends Controller
         Session::put('adminId',null);
         return redirect('admin');
     }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FrontEnds;
 
 use App\Http\Controllers\Controller;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -71,5 +72,47 @@ class CheckoutController extends Controller
     }
 
     public function Payment(){
+        return view('Partials.checkout.payment');
+    }
+
+    public function Order_place(Request $request){
+        // get payment method
+        $data = [];
+        $data['payment_method'] = $request->payment_option;
+        $data['payment_status'] = "Đang chờ xử lý";
+        $data['created_at'] = now();
+
+        $payment_id = DB::table('tbl_payment')->insertGetId($data);
+
+        // insert order
+        $order_data = [];
+        $order_data['customer_id'] = Session::get('customer_id');
+        $order_data['shipping_id'] = Session::get('shipping_id');
+        $order_data['payment_id'] = $payment_id;
+        $order_data['order_total'] = Cart::total();
+        $order_data['order_status'] = "Đang chờ xử lý";
+        $data['created_at'] = now();
+
+        $order_id = DB::table('tbl_order')->insertGetId($order_data);
+
+        // insert order details
+        $content = Cart::content();
+        foreach ($content as $key => $value) {
+            $order_details =[];
+            $order_details['order_id'] = $order_id;
+            $order_details['product_id'] = $value->id;
+            $order_details['product_name'] = $value->name;
+            $order_details['product_price'] = $value->price; 
+            $order_details['product_sales_quantity'] = $value->qty;
+            $order_details['product_image'] = $value->options->image;
+
+            $data['created_at'] = now();
+
+            DB::table('tbl_order_details')->insert($order_details);
+        }
+
+        // xóa giỏ hàng
+        Cart::destroy();
+        return view('Partials.checkout.thanks_order');
     }
 }

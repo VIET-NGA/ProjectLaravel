@@ -20,15 +20,16 @@
                                     <img src="{{asset('uploads/products/' . $item->product_image)}}" alt="" />
                                     <h2>{{ number_format($item->product_price) }}</h2>
                                     <p>{{ $item->product_name }}</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                    <i>{{ $item->product_description }}</i>
+                                    {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a> --}}
                                 </div>
                         </div>
-                        <div class="choose">
+                        {{-- <div class="choose">
                             <ul class="nav nav-pills nav-justified">
                                 <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                                 <li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </a>

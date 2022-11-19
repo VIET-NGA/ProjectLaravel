@@ -1,15 +1,18 @@
 @extends('layout')
-@section('title_page','Giỏ hàng')
+@section('title_page','checkout')
 @section('main')
 <section id="cart_items">
     <div class="container">
         <div class="breadcrumbs">
             <ol class="breadcrumb">
               <li><a href="#">Home</a></li>
-              <li class="active">Giỏ hàng của bạn</li>
+              <li class="active">Thanh toán giỏ hàng</li>
             </ol>
+        </div><!--/breadcrums-->
+        <div class="review-payment">
+            <h2>Xem lại giỏ hàng</h2>
         </div>
-        <div class="table-responsive cart_info">
+        <div class="table-responsive cart_info" style="margin-bottom: -1px">
             <?php 
                 $content = Cart::content();
                 $messages = Session::get('message');
@@ -64,35 +67,38 @@
                 </tbody>
             </table>
         </div>
-    </div>
-</section> <!--/#cart_items-->
-
-<section id="do_action">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-            </div>
-            <div class="col-sm-6">
-                <div class="total_area">
-                    <ul>
-                        <li>Cộng Tiền Hàng <span>{{ Cart::subtotal() }}</span></li>
-                        <li>Tiền Thuế 10%<span>{{ Cart::tax() }}</span></li>
-                        <li>Tiền Ship <span>Free</span></li>
-                        <li>Tổng Cộng Tiền Thanh Toán <span>{{ Cart::total() }}</span></li>
-                    </ul>
-                        {{-- <a class="btn btn-default update" href="">Update</a> --}}
-                        <?php
-                            $customer_id = Session::get('customer_id');
-                        ?>
-                        @if ($customer_id != null)
-                            <a class="btn btn-default check_out" href="{{ route('checkout') }}">Thanh Toán</a>
-                        @else
-                            <a class="btn btn-default check_out" href="{{ route('loginCheckout') }}">Thanh Toán</a>
-                        @endif
+        <section id="do_action">
+            <div class="container">
+                <div class="">
+                    <div class="col-sm-6">
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="total_area" style="margin-bottom: auto;">
+                            <ul>
+                                <li>Cộng Tiền hàng <span>{{ Cart::subtotal() }}</span></li>
+                                <li>Tiền Thuế 10%<span>{{ Cart::tax() }}</span></li>
+                                <li>Tiền Ship <span>Free</span></li>
+                                <li>Tổng Cộng  <span>{{ Cart::total() }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+        <br/>
+        <div class="payment-options">
+            <form action="{{ route('order-place') }}" method="post">
+                @csrf
+            <h3>Chọn hình thức thanh toán</h3>
+                <span>
+                    <label><input name="payment_option" value="0" type="checkbox"> Trả bẳng thẻ ATM</label>
+                </span>
+                <span>
+                    <label><input name="payment_option" value="1" type="checkbox"> Nhận tiền mặt</label>
+                </span>
+                <button type="submit" class="btn btn-primary"> Đặt hàng</button>
+            </form>
         </div>
     </div>
-</section><!--/#do_action-->
-    
+</section>
 @endsection

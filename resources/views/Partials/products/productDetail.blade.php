@@ -56,7 +56,7 @@
                                 <span>{{ number_format($product_detail->product_price) }}</span>
                                 <label>Số lượng:</label>
                                 <input type="hidden" name="productId" value="{{ $product_detail->product_id}}"/>
-                                <input type="text" name="qty" value="1" min="0" />
+                                <input type="number" name="qty" value="1" min="0" />
                                 <button type="submit" class="btn btn-fefault cart">
                                     <i class="fa fa-shopping-cart"></i>
                                     Thêm vào giỏ hàng

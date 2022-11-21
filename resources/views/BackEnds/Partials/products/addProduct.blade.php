@@ -47,13 +47,13 @@
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Mô tả </label>
                             <div class="col-lg-6">
-                                <textarea style="resize: none" rows="8" name="descriptionName" class="form-control" ></textarea>
+                                <textarea id="editor" style="resize: none" rows="8" name="descriptionName" class="form-control" ></textarea>
                             </div>
                         </div>
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Nội Dung </label>
                             <div class="col-lg-6">
-                                <textarea style="resize: none" rows="8" name="contentName" class="form-control" ></textarea>
+                                <textarea id="editor1" style="resize: none" rows="8" name="contentName" class="form-control" ></textarea>
                             </div>
                         </div>
                         <div class="form-group ">

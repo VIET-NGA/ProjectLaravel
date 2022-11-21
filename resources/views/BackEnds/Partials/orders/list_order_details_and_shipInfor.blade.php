@@ -48,7 +48,7 @@
               <th>Tên Sản Phẩm</th>
               <th>Số Lượng</th>
               <th>Đơn Giá</th>
-              <th>Tổng Tiền</th>
+              <th>Thành Tiền</th>
               <th style="width:30px;"></th>
             </tr>
           </thead>
@@ -62,7 +62,7 @@
                     <td>{{ $item->product_name }}</td>
                     <td>{{ $item->product_sales_quantity }}</td>
                     <td>{{ number_format($item->product_price)  }}</td>
-                    <td>{{ $item->order_total }}</td>
+                    <td>{{ number_format($item->product_price * $item->product_sales_quantity) }}</td>
                   </tr>
                 @endforeach
           </tbody>
@@ -78,7 +78,6 @@
           <table class="table table-striped b-t b-light">
             <thead>
               <tr>
-                <th style="width:20px;">STT</th>
                 <th>Tên Người Nhận</th>
                 <th>Email người nhận</th>
                 <th>Địa chỉ</th>
@@ -89,7 +88,6 @@
             <tbody>
                   {{-- @foreach ($shippingInfor as $key => $shipping) --}}
                       <tr>
-                          <td>1</td>
                           <td>{{ $shippingInfor->shipping_name }}</td>
                           <td>{{ $shippingInfor->shipping_email }}</td>
                           <td>{{ $shippingInfor->shipping_address }}</td>

@@ -34,6 +34,7 @@ class OrderController extends Controller
 
     // show order
     Public function Show_Order($id){
+        $this->AuthLogin();
         $orderData_Details = DB::table('tbl_order_details')
                             ->join('tbl_order', 'tbl_order.order_id', '=', 'tbl_order_details.order_id')
                             ->join('tbl_customer', 'tbl_customer.customer_id', '=', 'tbl_order.customer_id')
@@ -49,13 +50,14 @@ class OrderController extends Controller
     }
 
     public function Edit_Order($id){
+        $this->AuthLogin();
         $orderData = DB::table('tbl_order')->where('order_id',$id)->first();
         // dd($orderData);
 
         return view('BackEnds.Partials.orders.edit_order', compact('orderData'));
     }
     public function Update_Order(Request $request, $id){
-
+        $this->AuthLogin();
         $statusOrder['order_status'] = $request->orderStatus;
         // dd($statusOrder);
         DB::table('tbl_order')->where('order_id',$id)->update($statusOrder);

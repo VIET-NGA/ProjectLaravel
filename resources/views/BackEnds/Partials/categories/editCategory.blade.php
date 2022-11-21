@@ -34,7 +34,7 @@
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Mô tả </label>
                             <div class="col-lg-6">
-                                <textarea style="resize: none" rows="8" name="descriptionName"  class="form-control" >{!! $data->category_description !!}</textarea>
+                                <textarea id="editor" style="resize: none" rows="8" name="descriptionName"  class="form-control" >{!! $data->category_description !!}</textarea>
                             </div>
                         </div>
                         <div class="form-group ">

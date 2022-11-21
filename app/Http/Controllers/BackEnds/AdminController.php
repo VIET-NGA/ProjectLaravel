@@ -28,7 +28,7 @@ class AdminController extends Controller
     public function ShowDashboard(){
 
         $this->AuthLogin();
-        return view('BackEnds.Partials.home.home', compact('coutOrder'));
+        return view('BackEnds.Partials.home.home');
     }
 
     // login

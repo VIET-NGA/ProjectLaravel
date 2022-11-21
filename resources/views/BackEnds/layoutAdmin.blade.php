@@ -109,6 +109,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </section>
 <!--main content end-->
 </section>
+{{-- ckeditor --}}
+<script src="{{asset('BackEnds/ckeditor_4.20.0/ckeditor/ckeditor.js')}}"></script>
+<script type="text/javascript">  
+	CKEDITOR.replace( 'editor' ); 
+	CKEDITOR.replace( 'editor1');
+ </script> 
 <script src="{{asset('BackEnds/js/bootstrap.js')}}"></script>
 <script src="{{asset('BackEnds/js/jquery.dcjqaccordion.2.7.js')}}"></script>
 <script src="{{asset('BackEnds/js/scripts.js')}}"></script>

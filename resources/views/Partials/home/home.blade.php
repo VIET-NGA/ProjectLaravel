@@ -20,7 +20,7 @@
                                     <img src="{{asset('uploads/products/' . $item->product_image)}}" alt="" />
                                     <h2>{{ number_format($item->product_price) }}</h2>
                                     <p>{{ $item->product_name }}</p>
-                                    <i>{{ $item->product_description }}</i>
+                                    <i>{!! $item->product_description !!}</i>
                                     {{-- <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a> --}}
                                 </div>
                         </div>

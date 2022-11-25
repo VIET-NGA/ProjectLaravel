@@ -4,13 +4,14 @@
 @section('mainAdmin')
 <div class="row">
     <div class="col-lg-12">
-        <?php $messages = Session::get('message');
-    if ($messages) {
-        echo '<div class="alert alert-success" role="alert">';
-            echo $messages;
-            Session::put('message',null);
-        echo '</div>';
-    }
+        <?php 
+    //     $messages = Session::get('message');
+    // if ($messages) {
+    //     echo '<div class="alert alert-success" role="alert">';
+    //         echo $messages;
+    //         Session::put('message',null);
+    //     echo '</div>';
+    // }
 
     ?>
         <section class="panel">
@@ -27,7 +28,7 @@
                     <form action="{{ route('updateBrand', $result->brand_id) }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Thương Hiệu</label>
+                            <label class="control-label col-lg-3">Tên Thương Hiệu <span class="text-danger">(*)</span></label>
                             <div class="col-lg-6">
                                 <input class=" form-control" id="cate" value="{{ $result->brand_name }}" name="brandName" type="text">
                             </div>

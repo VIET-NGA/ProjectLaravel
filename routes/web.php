@@ -68,6 +68,7 @@ Route::post('order-place', [CheckoutController::class, 'Order_place'])->name('or
 
 
 
+
 Route::get('lien-he',[HomeController::class,'contact'])->name('contact');
 // Route::get('loginPage',[HomeController::class,'login'])->name('login');
 

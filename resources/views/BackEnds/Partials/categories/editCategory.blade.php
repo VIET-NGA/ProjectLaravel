@@ -26,9 +26,12 @@
                     <form action="{{ route('posteditCategory', $data->category_id) }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Danh Mục</label>
+                            <label class="control-label col-lg-3">Tên Danh Mục <span class=text-danger>(*)</span></label>
                             <div class="col-lg-6">
                                 <input class=" form-control" id="cate" name="categoryName" value="{{ $data->category_name }}"  type="text">
+                                @error('categoryName')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group ">

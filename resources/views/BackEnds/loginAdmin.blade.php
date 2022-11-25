@@ -30,20 +30,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="log-w3">
 <div class="w3layouts-main">
 	<h2>Đăng Nhập</h2>
-    <?php $messages = Session::get('message');
-    if ($messages) {
-        echo '<div class="alert alert-danger" role="alert">';
-            echo $messages;
-            Session::put('message',null);
-        echo '</div>';
-    }
-
+    <?php 
+	// $messages = Session::get('message');
+    // if ($messages) {
+        // echo '<div class="alert alert-danger" role="alert">';
+        //     echo $messages;
+        //     Session::put('message',null);
+        // echo '</div>';
+    // }
     ?>
+	@include('BackEnds.messengers.messages')
 		<form action="{{ route('adminDashboard') }}" method="post">
             @csrf
-			<input type="email" class="ggg" name="admin_email" value="{{ old('admin.email') }}" placeholder="Email" required="">
-			<input type="password" class="ggg" name="admin_password"  placeholder="Password" required="">
-			<span><input type="checkbox" />Nhớ</span>
+			<input type="email" class="ggg" name="admin_email" value="{{ old('admin_email') }}" placeholder="Email *" >
+				@error('admin_email')
+					<div class="alert alert-danger">{{ $message }}</div>
+				@enderror
+			<input type="password" class="ggg" name="admin_password"  placeholder="Password *" >
+				@error('admin_password')
+					<div class="alert alert-danger">{{ $message }}</div>
+				@enderror
+			<span><input type="checkbox" name="remember" />Nhớ</span>
 			<h6><a href="#">Quên mật khẩu?</a></h6>
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">

@@ -4,15 +4,22 @@
 @section('mainAdmin')
 <div class="row">
     <div class="col-lg-12">
-        <?php $messages = Session::get('message');
-    if ($messages) {
-        echo '<div class="alert alert-success" role="alert">';
-            echo $messages;
-            Session::put('message',null);
-        echo '</div>';
-    }
+        <?php 
+    //     $messages = Session::get('message');
+    // if ($messages) {
+    //     echo '<div class="alert alert-success" role="alert">';
+    //         echo $messages;
+    //         Session::put('message',null);
+    //     echo '</div>';
+    // }
 
     ?>
+    @if (Session::has('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ Session::get('success') }}</strong>
+    </div>
+    @endif
         <section class="panel">
             <header class="panel-heading">
                 @yield('titleAdminPage')
@@ -27,10 +34,14 @@
                     <form action="{{ route('saveBrand') }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Thương Hiệu</label>
+                            <label class="control-label col-lg-3">Tên Thương Hiệu <span class="text-danger">(*)</span></label>
                             <div class="col-lg-6">
-                                <input class=" form-control" id="cate" name="brandName" type="text">
+                                <input class=" form-control" id="cate" name="brandName" value="{{ old('brandName') }}" type="text">
+                                @error('brandName')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                             </div>
+                            
                         </div>
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Mô tả </label>
@@ -47,7 +58,6 @@
                                 </select>
                             </div>
                         </div>
-                       
 
                         <div class="form-group">
                             <div class="col-lg-offset-3 col-lg-6">

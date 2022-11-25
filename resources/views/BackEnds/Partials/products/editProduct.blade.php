@@ -1,17 +1,24 @@
 @extends('BackEnds.layoutAdmin')
-@section('titleAdminPage','Thêm Sản Phẩm')
+@section('titleAdminPage','Cập nhật Sản Phẩm')
     
 @section('mainAdmin')
 <div class="row">
     <div class="col-lg-12">
-        <?php $messages = Session::get('message');
-            if ($messages) {
-                echo '<div class="alert alert-success" role="alert">';
-                    echo $messages;
-                    Session::put('message',null);
-                echo '</div>';
-            }
+        <?php 
+        // $messages = Session::get('message');
+        //     if ($messages) {
+        //         echo '<div class="alert alert-success" role="alert">';
+        //             echo $messages;
+        //             Session::put('message',null);
+        //         echo '</div>';
+        //     }
         ?>
+        @if (Session::has('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            <strong>{{ Session::get('success') }}</strong>
+        </div>
+        @endif
         <section class="panel">
             <header class="panel-heading">
                 @yield('titleAdminPage')
@@ -26,22 +33,31 @@
                     <form action="{{ route('updateProduct', $product->product_id) }}" class="cmxform form-horizontal" enctype="multipart/form-data" id="signupForm" method="post" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Sản Phẩm</label>
+                            <label class="control-label col-lg-3">Tên Sản Phẩm <span class="text-danger">(*)</span> </label>
                             <div class="col-lg-6">
                                 <input class=" form-control" id="cate" name="productName" value="{{ $product->product_name }}" type="text">
+                                @error('productName')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Hình Ảnh</label>
+                            <label class="control-label col-lg-3">Hình Ảnh </label>
                             <div class="col-lg-6">
                                 <input class=" form-control" type="file" name="imageName" id="">
+                                @error('imageName')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                                 <img src="{{ asset('uploads/products/'. $product->product_image) }}" width="100px" height="auto" alt="">
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Đơn Giá</label>
+                            <label class="control-label col-lg-3">Đơn Giá <span class="text-danger">(*)</span></label>
                             <div class="col-lg-6">
                                 <input class=" form-control" id="cate" value="{{ $product->product_price }}" name="price" min="0" type="number">
+                                @error('price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group ">
@@ -61,7 +77,7 @@
                             <div class="col-lg-6">
                                 <select class="form-control" name="categoryId" id="">
                                     <option value="0">--- Danh Mục ---</option>
-                                    @foreach ($category as $key=>$cat)
+                                    @foreach ($ShareCategory as $key=>$cat)
                                         @if ($cat->category_id==$product->category_id)
                                             <option selected value="{{ $cat->category_id }}">{{ $cat->category_name }}</option>
                                         @else
@@ -76,7 +92,7 @@
                             <div class="col-lg-6">
                                 <select class="form-control" name="brandId" id="">
                                     <option value="0">--- Thương Hiệu ---</option>
-                                    @foreach ($brand as $key=>$brand)
+                                    @foreach ($ShareBrand as $key=>$brand)
                                         @if ($brand->brand_id==$product->brand_id)
                                             <option selected value="{{ $brand->brand_id }}" >{{ $brand->brand_name }}</option>
                                         @else

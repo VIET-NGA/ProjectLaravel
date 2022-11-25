@@ -2,16 +2,21 @@
 @section('titleAdminPage','Danh mục Sản Phẩm')
 @section('mainAdmin')
 <div class="table-agile-info">
-    <?php $messages = Session::get('message');
-    if ($messages) {
-        echo '<div class="alert alert-success" role="alert">';
-            echo $messages;
-            Session::put('message',null);
-        echo '</div>';
-    }
-
+    <?php 
+    // $messages = Session::get('message');
+    // if ($messages) {
+    //     echo '<div class="alert alert-success" role="alert">';
+    //         echo $messages;
+    //         Session::put('message',null);
+    //     echo '</div>';
+    // }
     ?>
-    
+    @if (Session::has('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ Session::get('success') }}</strong>
+    </div>
+    @endif
     <div class="text-right" style="margin-bottom: 5px">
         <a href="{{ route('addCategory') }}" title="Thêm danh mục">
             <span class="btn btn-success" value="add">
@@ -58,7 +63,7 @@
             <tr>
                 <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
                 <td>{{ $cat->category_name }}</td>
-                <td><span class="text-ellipsis">{{ $cat->category_description }}</span></td>
+                <td><span class="text-ellipsis">{!! $cat->category_description !!}</span></td>
                 <td style="text-align:center">
                     @if ($cat->category_status==0)
                     <span class="text-ellipsis bg-success">
@@ -89,11 +94,11 @@
       </div>
       <footer class="panel-footer">
         <div class="row">
-          
-          <div class="col-sm-5 text-center">
-            <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+          <div class="text-right">
+            {{ $result->links() }}
           </div>
-          <div class="col-sm-7 text-right text-center-xs">                
+          {{-- <div class="col-sm-7 text-right text-center-xs">
+            
             <ul class="pagination pagination-sm m-t-none m-b-none">
               <li><a href=""><i class="fa fa-chevron-left"></i></a></li>
               <li><a href="">1</a></li>
@@ -102,7 +107,7 @@
               <li><a href="">4</a></li>
               <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
             </ul>
-          </div>
+          </div> --}}
         </div>
       </footer>
       @else

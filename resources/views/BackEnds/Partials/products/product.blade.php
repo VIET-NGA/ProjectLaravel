@@ -2,16 +2,22 @@
 @section('titleAdminPage','Danh Sách Sản Phẩm')
 @section('mainAdmin')
 <div class="table-agile-info">
-    <?php $messages = Session::get('message');
-    if ($messages) {
-        echo '<div class="alert alert-success" role="alert">';
-            echo $messages;
-            Session::put('message',null);
-        echo '</div>';
-    }
+    <?php 
+    // $messages = Session::get('message');
+    // if ($messages) {
+    //     echo '<div class="alert alert-success" role="alert">';
+    //         echo $messages;
+    //         Session::put('message',null);
+    //     echo '</div>';
+    // }
 
     ?>
-    
+    @if (Session::has('success'))
+    <div class="alert alert-success alert-block">
+        <button type="button" class="close" data-dismiss="alert">×</button>    
+        <strong>{{ Session::get('success') }}</strong>
+    </div>
+    @endif
     <div class="text-right" style="margin-bottom: 5px">
         <a href="{{ route('addProduct') }}" title="Thêm Sản Phẩm">
             <span class="btn btn-success" value="add">
@@ -66,9 +72,9 @@
                         </td>
                         <td>{{ $pro->product_name }}</td>
                         <td>{{ number_format($pro->product_price) }}</td>
-                        <td>{{ $pro->product_description }}</td>
-                        <td>{{ $pro->category_name }}</td>
-                        <td>{{ $pro->brand_name }}</td>
+                        <td>{!! $pro->product_description !!}</td>
+                        <td>{{ $pro->category->category_name }}</td>
+                        <td>{{ $pro->brand->brand_name }}</td>
                         <td class="text-center" >
                             @if ($pro->product_status == 0)
                             <span class="text-ellipsis bg-success">
@@ -98,8 +104,10 @@
       </div>
       <footer class="panel-footer">
         <div class="row">
-          
-          <div class="col-sm-5 text-center">
+          <div class="text-right">
+            {{ $result->links() }}
+          </div>
+          {{-- <div class="col-sm-5 text-center">
             <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
           </div>
           <div class="col-sm-7 text-right text-center-xs">                
@@ -111,7 +119,7 @@
               <li><a href="">4</a></li>
               <li><a href=""><i class="fa fa-chevron-right"></i></a></li>
             </ul>
-          </div>
+          </div> --}}
         </div>
       </footer>
       @else

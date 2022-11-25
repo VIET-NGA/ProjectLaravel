@@ -4,15 +4,22 @@
 @section('mainAdmin')
 <div class="row">
     <div class="col-lg-12">
-        <?php $messages = Session::get('message');
-    if ($messages) {
-        echo '<div class="alert alert-success" role="alert">';
-            echo $messages;
-            Session::put('message',null);
-        echo '</div>';
-    }
+        <?php 
+        // $messages = Session::get('message');
+            // if ($messages) {
+            //     echo '<div class="alert alert-success" role="alert">';
+            //         echo $messages;
+            //         Session::put('message',null);
+            //     echo '</div>';
+            // }
 
-    ?>
+        ?>
+        @if (Session::has('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>    
+            <strong>{{ Session::get('success') }}</strong>
+        </div>
+        @endif
         <section class="panel">
             <header class="panel-heading">
                 @yield('titleAdminPage')
@@ -27,9 +34,12 @@
                     <form action="{{ route('postCategory') }}" class="cmxform form-horizontal " id="signupForm" method="post" action="" novalidate="novalidate">
                         @csrf
                         <div class="form-group ">
-                            <label class="control-label col-lg-3">Tên Danh Mục</label>
+                            <label class="control-label col-lg-3">Tên Danh Mục <span class="text-danger">(*)</span></label>
                             <div class="col-lg-6">
-                                <input class=" form-control" id="cate" name="categoryName" type="text">
+                                <input class="@error('categoryName') is-invalid @enderror form-control" id="cate" name="categoryName" value="{{ old('categoryName') }}" type="text">
+                                @error('categoryName')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="form-group ">

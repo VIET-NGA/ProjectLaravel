@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\FrontEnds;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMail;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
@@ -57,30 +59,51 @@ class CheckoutController extends Controller
         return view('Partials.checkout.checkout');
     }
 
-    public function Save_Shipping(Request $request){
-        $data=[];
-        $data['shipping_name'] = $request->shipping_name;
-        $data['shipping_email'] = $request->shipping_email;
-        $data['shipping_address'] = $request->shipping_address;
-        $data['shipping_phone'] = $request->shipping_phone;
-        $data['shipping_note'] = $request->shipping_note;
-        $data['created_at'] = now();
+    // public function Save_Shipping(Request $request){
+    //     $data=[];
+    //     $data['shipping_name'] = $request->shipping_name;
+    //     $data['shipping_email'] = $request->shipping_email;
+    //     $data['shipping_address'] = $request->shipping_address;
+    //     $data['shipping_phone'] = $request->shipping_phone;
+    //     $data['shipping_note'] = $request->shipping_note;
+    //     $data['created_at'] = now();
 
-        $InsertgetId_shipping = DB::table('tbl_shipping')->insertGetId($data);
-        Session::put('shipping_id', $InsertgetId_shipping);
-        return redirect()->route('payment');
-    }
+    //     $InsertgetId_shipping = DB::table('tbl_shipping')->insertGetId($data);
+    //     Session::put('shipping_id', $InsertgetId_shipping);
+    //     return redirect()->route('payment');
+    // }
 
-    public function Payment(){
-        return view('Partials.checkout.payment');
-    }
+    // public function Payment(){
+    //     return view('Partials.checkout.payment');
+    // }
 
     public function Order_place(Request $request){
+
+        $dataMail = [];
+        try {
+           // save shipping
+        $shipping=[];
+        $shipping['shipping_name'] = $request->shipping_name;
+        $shipping['shipping_email'] = $request->shipping_email;
+        $shipping['shipping_address'] = $request->shipping_address;
+        $shipping['shipping_phone'] = $request->shipping_phone;
+        $shipping['shipping_note'] = $request->shipping_note;
+        $shipping['created_at'] = now();
+
+        $dataMail['khachhang'] = $shipping;
+
+        $InsertgetId_shipping = DB::table('tbl_shipping')->insertGetId($shipping);
+
+        
+        Session::put('shipping_id', $InsertgetId_shipping);
+
         // get payment method
         $data = [];
         $data['payment_method'] = $request->payment_option;
         $data['payment_status'] = "Đang chờ xử lý";
         $data['created_at'] = now();
+
+        $dataMail['hinhthucthanhtoan'] = $data;
 
         $payment_id = DB::table('tbl_payment')->insertGetId($data);
 
@@ -91,12 +114,15 @@ class CheckoutController extends Controller
         $order_data['payment_id'] = $payment_id;
         $order_data['order_total'] = Cart::total();
         $order_data['order_status'] = "Đang chờ xử lý";
-        $data['created_at'] = now();
+        $order_data['created_at'] = now();
+
+        $dataMail['order'] = $order_data;
 
         $order_id = DB::table('tbl_order')->insertGetId($order_data);
 
         // insert order details
         $content = Cart::content();
+        // dd($content);
         foreach ($content as $key => $value) {
             $order_details =[];
             $order_details['order_id'] = $order_id;
@@ -106,13 +132,29 @@ class CheckoutController extends Controller
             $order_details['product_sales_quantity'] = $value->qty;
             $order_details['product_image'] = $value->options->image;
 
-            $data['created_at'] = now();
+            $order_details['created_at'] = now();
 
             DB::table('tbl_order_details')->insert($order_details);
+
+            $dataMail['order_detail'][] = $order_details;
         }
 
+        // dd($dataMail);
+            Mail::to($shipping['shipping_email'])->send(new SendMail($dataMail));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+        
         // xóa giỏ hàng
         Cart::destroy();
         return view('Partials.checkout.thanks_order');
     }
+
+    // public function SendMail(){
+    //     $name = 'test send mail';
+       
+    //     Mail::send('Partials.Emails.thanksOrder', compact('name'), function($email){ 
+    //         $email->to('vietnga@tanthanhthinh.com', 'Viet Nga');
+    //     });
+    // }
 }

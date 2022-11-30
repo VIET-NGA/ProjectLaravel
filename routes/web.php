@@ -65,6 +65,8 @@ Route::get('payment', [CheckoutController::class, 'payment'])->name('payment');
 // order-place
 Route::post('order-place', [CheckoutController::class, 'Order_place'])->name('order-place');
 
+Route::get('test-sendmail',[CheckoutController::class,'SendMail']);
+
 
 
 

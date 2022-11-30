@@ -35,9 +35,18 @@ return [
 
     'mailers' => [
         'smtp' => [
+            // 'transport' => 'smtp',
+            // 'host' => 'smtp.gmail.com',
+            // 'port' => 587,
+            // 'encryption' => 'tls',
+            // 'username' => 'thaivietnga@gmail.com',
+            // 'password' => 'hezwhbipqxkbvjeb',
+            // 'timeout' => null,
+            // 'auth_mode' => null,
+
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
-            'port' => env('MAIL_PORT', 465),
+            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'port' => env('MAIL_PORT', 587),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
@@ -92,8 +101,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'laravelhddt001@gmail.com'),
-        'name' => env('MAIL_FROM_NAME', 'Xác nhận đơn hàng'),
+        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
     /*

@@ -15,21 +15,22 @@ class BrandController extends Controller
     private $brand;
     public function __construct(Brand $brand){
         $this->brand = $brand;
+        // $this->middleware('auth');
     }
 
     // check Auth
     // chú ý hàm send
-    public function AuthLogin(){
-        $admin_id = Session::get('adminId');
-        if ($admin_id) {
-            return redirect()->route('dashboard');
-        }else{
-            return redirect()->route('admin')->send();
-        }
-    }
+    // public function AuthLogin(){
+    //     $admin_id = Session::get('adminId');
+    //     if ($admin_id) {
+    //         return redirect()->route('dashboard');
+    //     }else{
+    //         return redirect()->route('admin')->send();
+    //     }
+    // }
 
     public function index(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // toArray để check Empty bên view
         // $data = DB::table('tbl_brand')->get()->toArray();
 
@@ -40,11 +41,11 @@ class BrandController extends Controller
 
     // add
     public function addBrand(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         return view('BackEnds.Partials.brands.addBrand');
     }
     public function saveBrand(BrandRequest $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $data=[];
         // $data['brand_name'] = $request->brandName;
         // $data['brand_description'] = $request->descriptionName;
@@ -69,14 +70,14 @@ class BrandController extends Controller
 
     // edit
     public function editBrand($id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $result = DB::table('tbl_brand')->where('brand_id',$id)->first();
         $result = $this->brand::find($id);
         return view('BackEnds.Partials.brands.editBrand', compact('result'));
     }
 
     public function updateBrand(Request $request, $id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $data = [];
         // $data['brand_name'] = $request->brandName;
         // $data['brand_description'] = $request->descriptionName;
@@ -106,7 +107,7 @@ class BrandController extends Controller
 
     // delete
     public function deleteBrand($id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
     //    $data = DB::table('tbl_brand')->where('brand_id', $id)->delete();
     //    Session::put('message','Xóa Thương Hiệu Thành Công');
 

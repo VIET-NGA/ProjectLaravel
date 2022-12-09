@@ -32,6 +32,12 @@
                     <span>Đơn Hàng</span>
                 </a>
             </li>
+            <li>
+                <a class="{{ (request()->segment(2)=='coupon') ? ' active' : '' }}" href="{{ route('coupon.index') }}">
+                    <i class="fa fa-life-ring"></i>
+                    <span>Mã Giảm Giá</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!-- sidebar menu end-->

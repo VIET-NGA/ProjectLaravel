@@ -3,11 +3,13 @@
 use App\Http\Controllers\BackEnds\AdminController;
 use App\Http\Controllers\BackEnds\BrandController;
 use App\Http\Controllers\BackEnds\CategoryController;
+use App\Http\Controllers\BackEnds\CouponController;
 use App\Http\Controllers\BackEnds\OrderController;
 use App\Http\Controllers\BackEnds\ProductController;
 use App\Http\Controllers\FrontEnds\CartController;
 use App\Http\Controllers\FrontEnds\CheckoutController;
 use App\Http\Controllers\FrontEnds\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,9 +67,6 @@ Route::get('payment', [CheckoutController::class, 'payment'])->name('payment');
 // order-place
 Route::post('order-place', [CheckoutController::class, 'Order_place'])->name('order-place');
 
-Route::get('test-sendmail',[CheckoutController::class,'SendMail']);
-
-
 
 
 
@@ -88,7 +87,7 @@ Route::prefix('admin')->group(function(){
 
 
     // category
-    Route::prefix('category')->group(function(){ 
+    Route::prefix('category')->middleware('checkAuth')->group(function(){ 
         Route::get('/',[CategoryController::class,'index'])->name('category');
 
         // add
@@ -104,7 +103,7 @@ Route::prefix('admin')->group(function(){
     });
 
     // Brand 
-    Route::prefix('brand')->group(function(){
+    Route::prefix('brand')->middleware('checkAuth')->group(function(){
         Route::get('/',[BrandController::class,'index'])->name('brand');
 
         // add
@@ -120,7 +119,7 @@ Route::prefix('admin')->group(function(){
     });
 
     // Product
-    Route::prefix('product')->group(function(){
+    Route::prefix('product')->middleware('checkAuth')->group(function(){
         Route::get('/',[ProductController::class,'index'])->name('product');
 
         // add
@@ -136,11 +135,13 @@ Route::prefix('admin')->group(function(){
     });
 
     // Order
-    Route::prefix('order')->group(function(){
+    Route::prefix('order')->middleware('checkAuth')->group(function(){
         Route::get('/',[OrderController::class,'index'])->name('order');
         Route::get('show-order/{id}',[OrderController::class,'Show_Order'])->name('showOrder');
         Route::get('edit-order/{id}',[OrderController::class,'Edit_Order'])->name('editOrder');
         Route::post('update-order/{id}',[OrderController::class,'Update_Order'])->name('updateOrder');
     });
-    
+
+    // Mã Giảm Giá: coupon
+    Route::resource('coupon', CouponController::class)->middleware('checkAuth');
 });

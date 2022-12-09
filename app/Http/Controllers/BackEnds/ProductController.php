@@ -19,18 +19,18 @@ class ProductController extends Controller
     }
     // check Auth
     // chú ý hàm send
-    public function AuthLogin(){
-        $admin_id = Session::get('adminId');
-        if ($admin_id) {
-            return redirect()->route('dashboard');
-        }else{
-            return redirect()->route('admin')->send();
-        }
-    }
+    // public function AuthLogin(){
+    //     $admin_id = Session::get('adminId');
+    //     if ($admin_id) {
+    //         return redirect()->route('dashboard');
+    //     }else{
+    //         return redirect()->route('admin')->send();
+    //     }
+    // }
 
 
     public function index(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $result = DB::table('tbl_product')
         //             ->join('tbl_category','tbl_product.category_id', '=', 'tbl_category.category_id')
         //             ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
@@ -46,7 +46,7 @@ class ProductController extends Controller
 
     // add
     public function addProduct(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $category = DB::table('tbl_category')->orderBy('category_id','DESC')->get();
         // $brand = DB::table('tbl_brand')->orderBy('brand_id','DESC')->get();
 
@@ -57,7 +57,7 @@ class ProductController extends Controller
     }
 
     public function saveProduct(ProductRequest $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $data=[];
         // $data['product_name']=$request->productName;
         // $data['product_price']=$request->price;
@@ -128,7 +128,7 @@ class ProductController extends Controller
 
     // edit
     public function editProduct($id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
 
         // chuyển sang share data $category và $brand từ AppServiceProvider
         // $category = DB::table('tbl_category')->orderBy('category_id','DESC')->get();
@@ -141,7 +141,7 @@ class ProductController extends Controller
     }
 
     public function updateProduct(EditProductRequest $request, $id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $result = DB::table('tbl_product')->where('product_id',$id)->first();
         $result = $this->pro::find($id);
         // dd($result->product_image);
@@ -176,7 +176,6 @@ class ProductController extends Controller
             // image
                 $get_image = $request->file('imageName');
                 if ($get_image) {
-                    echo "ok";
                     $filename = $get_image->getClientOriginalName();
                     $imageCur = current(explode('.', $filename));
                     $imageEx = $get_image->getClientOriginalExtension();
@@ -207,7 +206,7 @@ class ProductController extends Controller
 
     // delete
     public function deleteProduct($id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $result = DB::table('tbl_product')->where('product_id', $id)->first();
         // $image_Path = "uploads/products/" . $result->product_image;
         // if (file_exists($image_Path)) {

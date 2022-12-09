@@ -6,16 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class Coupon extends Model
 {
     use HasFactory;
-
     use SoftDeletes;
 
-    protected $guards =[];
-    protected $table = 'tbl_category';
-    protected $primaryKey  = 'category_id';
+    protected $fillable =[
+        'name', 'slug', 'number', 'time', 'code', 'condition'
+    ];
+    protected $table = 'Coupons';
 
     public $timestamps = false;
-
 }

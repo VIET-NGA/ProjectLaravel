@@ -36,10 +36,10 @@
                         <div class="form-group ">
                             <label class="control-label col-lg-3">Tên Thương Hiệu <span class="text-danger">(*)</span></label>
                             <div class="col-lg-6">
-                                <input class=" form-control" id="cate" name="brandName" value="{{ old('brandName') }}" type="text">
+                                <input class="form-control @error('brandName') is-invalid @enderror" name="brandName" value="{{ old('brandName') }}" type="text">
                                 @error('brandName')
                                 <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                                @enderror
                             </div>
                             
                         </div>

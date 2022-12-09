@@ -92,6 +92,17 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <label for="">Mã giảm giá</label>
+                        <input class="form-control" type="text" placeholder="Nhập mã giảm giá">
+                        <button type="submit" class="btn btn-primary"> Áp mã giảm giá</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </section><!--/#do_action-->
     

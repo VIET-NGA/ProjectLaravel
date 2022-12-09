@@ -18,18 +18,18 @@ class CategoryController extends Controller
     }
     // check Auth
     // chú ý hàm send
-    public function AuthLogin(){
-        $admin_id = Session::get('adminId');
-        if ($admin_id) {
-            return redirect()->route('dashboard');
-        }else{
-            return redirect()->route('admin')->send();
-        }
-    }
+    // public function AuthLogin(){
+    //     $admin_id = Session::get('adminId');
+    //     if ($admin_id) {
+    //         return redirect()->route('dashboard');
+    //     }else{
+    //         return redirect()->route('admin')->send();
+    //     }
+    // }
 
 
     public function index(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $result = DB::table('tbl_category')->get()->toArray();
         $result = $this->cate::orderBy('category_id','DESC')->paginate(5);
         return view('BackEnds.partials.categories.category', compact('result'));
@@ -37,13 +37,13 @@ class CategoryController extends Controller
 
     // get add
     public function addCategory(){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         return view('BackEnds.partials.categories.addCategory');
     }
 
     // post add
     public function postCategory(CategoryRequest $request){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $data=[];
         // $data['category_name'] = $request->categoryName;
         // $data['category_description'] = $request->descriptionName;
@@ -67,7 +67,7 @@ class CategoryController extends Controller
 
     // get edit category
     public function editCategory($id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $data = DB::table('tbl_category')->where('category_id', $id)->first();
         $data = $this->cate::find($id);
         return view('BackEnds.Partials.categories.editCategory', compact('data'));
@@ -75,7 +75,7 @@ class CategoryController extends Controller
 
     // post edit category
     public function posteditCategory(EditCategoryRequest $request, $id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // $data=[];
         // $data['category_name'] = $request->categoryName;
         // $data['category_description'] = $request->descriptionName;
@@ -101,7 +101,7 @@ class CategoryController extends Controller
 
     // delete category
     public function deleteCategory($id){
-        $this->AuthLogin();
+        // $this->AuthLogin();
         // DB::table('tbl_category')->where('category_id', $id)->delete();
         // Session::put('message','Xóa Danh Mục Thành Công');
         $result = $this->cate::where('category_id', $id);
